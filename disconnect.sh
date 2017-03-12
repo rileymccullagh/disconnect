@@ -14,9 +14,9 @@ if (( $EUID != 0 ))
 fi
 
 # check if there is a screenconnect install
-if test -n "$(find . -maxdepth 1 -name '/opt/screenconnect*' -print -quit)"
+if test -n "$(find /opt -maxdepth 1 -name 'screenconnect*' -print -quit)"
     then
-        echo "ScreenConnect is indeed installed."
+        echo "ScreenConnect is indeed installed. Nuking..."
         echo
     else
         echo "ScreenConnect does not appear to be installed."
@@ -40,8 +40,13 @@ do
         # print it out for the good folk at home
         echo "ScreenConnect install ID: ${ID}"
 
-        # stop the screenconnect service
-        `launchctl unload /Library/LaunchAgents/${ID}-onlogin.plist`
+        # screenconnect says to stop the screenconnect service
+        #`launchctl unload /Library/LaunchAgents/${ID}-onlogin.plist`
+
+        # but i'm not convinced this works, so i kill all processes
+        # with "screenconnect" in the name instead
+        # note the regex on screenconnect so awk doesn't find itself
+        `ps aux | awk '/[s]creenconnect/ {print $2}' | xargs sudo kill`
 
         # delete the service definitions
         `rm /Library/LaunchAgents/${ID}-*.plist`
@@ -53,4 +58,6 @@ do
         `rm -r /opt/${ID}.app`
     fi
 done
+
 # that's all folks
+echo "ScreenConnect should be uninstalled now."
