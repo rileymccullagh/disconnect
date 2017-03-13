@@ -1,16 +1,16 @@
-# disconnect
+# Disconnect
 A ScreenConnect removal tool for macOS
 
-## how to
+## How to
 Clone this repository and run disconnect.sh with sudo
 
-## it didn't work
+## It didn't work
 Restart your computer
 
-## it still didn't work
+## It still didn't work
 Check what's in /opt/, /Library/LaunchDaemons, /Library/LaunchAgents
 
-## what does "run disconnect.sh with sudo" mean?
+## What does "run disconnect.sh with sudo" mean?
 Ask someone who is better at computers to help you, or:
 
 1. Download these files as a zip and unzip it
